@@ -94,7 +94,6 @@ end
 
 %x[ cd #{source_root} ]
 test_target = "xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} build"
-puts "#{test_target}"
 test_target_exit_code = system(test_target)
 
 if test_target_exit_code
@@ -112,8 +111,6 @@ app_path = "#{source_root}/build/#{configuration}-#{arch}/#{target}.app"
 test_command = "#{sim_path} launch '#{app_path}'"
 test_command + " --family #{family} " unless family.nil?
 test_command + " --sdk #{sdk} " unless sdk.nil?
-
-puts test_command
 
 system("#{test_command} > #{log_file} 2>&1")
 

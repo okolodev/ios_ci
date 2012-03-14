@@ -69,11 +69,22 @@ if target.nil? or source_root.nil?
   exit 1
 end
 
+%x[ cd #{source_root} ]
+cedar_test_target = "xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} build"
+cedar_test_target_exit_code = system(cedar_test_target)
+
+if cedar_test_target_exit_code
+  puts "Cedar tests build succeeded"
+  puts
+else
+  puts "Cedar tests build failed"
+  exit 1
+end
+
 log_file = "/tmp/cedar-#{target}-#{Time.now.to_i}.log" if log_file.nil?
 app_path = "#{source_root}/build/#{configuration}-#{arch}/#{target}.app"
 
 %x[ killall "iPhone Simulator" ]
-%x[ cd #{source_root} ]
 
 test_command = "#{sim_path} launch #{app_path} --setenv CEDAR_HEADLESS_SPECS=1 --setenv CEDAR_REPORTER_CLASS=CDRColorizedReporter,CDRJUnitXMLReporter --setenv CEDAR_JUNIT_XML_FILE=#{source_root}/test-reports/cedar.xml "
 test_command + " --family #{family} " unless family.nil?
