@@ -47,6 +47,8 @@ if target.nil? or source_root.nil?
   printUsage
   exit 1
 end
+app_path = "#{source_root}/build/#{configuration}-#{arch}/#{target}.app"
+%x[ rm -rf #{app_path}]
 
 cedar_test_target = " cd #{source_root} && xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} clean build "
 cedar_test_target_exit_code = system(cedar_test_target)
@@ -60,7 +62,6 @@ else
 end
 
 log_file = "/tmp/frank-#{target}-#{Time.now.to_i}.log" if log_file.nil?
-app_path = "#{source_root}/build/#{configuration}-#{arch}/#{target}.app"
 
 test_command = "cucumber"
 
