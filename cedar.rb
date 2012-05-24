@@ -69,8 +69,7 @@ if target.nil? or source_root.nil?
   exit 1
 end
 
-%x[ cd #{source_root} ]
-cedar_test_target = "xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} build"
+cedar_test_target = "cd #{source_root} && xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} build"
 cedar_test_target_exit_code = system(cedar_test_target)
 
 if cedar_test_target_exit_code
