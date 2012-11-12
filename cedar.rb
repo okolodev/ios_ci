@@ -4,6 +4,8 @@ require "getoptlong"
 getoptlong = GetoptLong.new(
    [ '--sdk',   '-s', GetoptLong::REQUIRED_ARGUMENT ],
    [ '--target',  '-t', GetoptLong::REQUIRED_ARGUMENT ],
+   [ '--scheme',  '-h', GetoptLong::REQUIRED_ARGUMENT ],
+   [ '--workspace',  '-w', GetoptLong::REQUIRED_ARGUMENT ],
    [ '--configuration', '-c', GetoptLong::REQUIRED_ARGUMENT ],
    [ '--log-file', '-l', GetoptLong::REQUIRED_ARGUMENT ],
    [ '--source-root', '-r', GetoptLong::REQUIRED_ARGUMENT ],
@@ -14,7 +16,12 @@ getoptlong = GetoptLong.new(
 
 def printUsage()
 	puts "Usage:"
+	puts "If you building target from XCode project"
 	puts "cedar.rb --source-root source_path --target project_target [ --sdk sdk] [ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ]"
+	puts ""
+	puts "If you building scheme from workspace"
+	puts "cedar.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk] [ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ]"
+	puts ""
         puts "  --arch: iphoneos, iphonesimulator"
         puts "    default: iphoneos"
         puts "  --configuration: Release, Debug"
@@ -27,14 +34,19 @@ def printUsage()
         puts "    default: /tmp/cedar-$target-$timestamp.log"
 end
 
+BUILD_SCHEME = "scheme"
+BUILD_TARGET = "target"
 source_root = nil
 target = nil
+workspace = nil
+scheme = nil
 arch = "iphoneos"
 configuration = "Release"
 sdk = nil
 family = nil
 log_file = nil
 sim_path = "/usr/local/bin/ios-sim"
+build_type = nil;
 
 begin
   getoptlong.each do |opt, arg|
@@ -43,6 +55,10 @@ begin
         source_root = arg
       when "--target"
         target = arg
+      when "--workspace" 
+	workspace = arg
+      when "--scheme"
+	scheme = arg
       when "--sdk"
         sdk = arg
       when "--configuration"
@@ -63,13 +79,22 @@ rescue StandardError=>my_error_message
 	exit 1
 end
 
-if target.nil? or source_root.nil?
-  puts "You must specify target and source root"
+if !target.nil? and !source_root.nil?
+  build_type = BUILD_TARGET
+elsif !workspace.nil? and !scheme.nil?
+  build_type = BUILD_SCHEME
+else
+  puts "You must specify target and source root or scheme and workspace"
   printUsage
   exit 1
 end
 
-cedar_test_target = "cd #{source_root} && xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} build"
+cedar_test_target = "cd #{source_root} && "
+if build_type == BUILD_TARGET
+  cedar_test_target += "xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} build"
+else
+  cedar_test_target += "xcodebuild -scheme '#{scheme}' -workspace '#{workspace}' -sdk #{arch} -configuration #{configuration} build"
+end
 cedar_test_target_exit_code = system(cedar_test_target)
 
 if cedar_test_target_exit_code
@@ -85,6 +110,7 @@ app_path = "#{source_root}/build/#{configuration}-#{arch}/#{target}.app"
 
 %x[ killall "iPhone Simulator" ]
 
+puts ">>>>>>>>>#{app_path} <<<<<<<<<"
 test_command = "#{sim_path} launch #{app_path} --setenv CEDAR_HEADLESS_SPECS=1 --setenv CEDAR_REPORTER_CLASS=CDRColorizedReporter,CDRJUnitXMLReporter --setenv CEDAR_JUNIT_XML_FILE=#{source_root}/test-reports/cedar.xml "
 test_command + " --family #{family} " unless family.nil?
 test_command + " --sdk #{sdk} " unless sdk.nil?
