@@ -10,17 +10,17 @@ getoptlong = GetoptLong.new(
    [ '--log-file', '-l', GetoptLong::REQUIRED_ARGUMENT ],
    [ '--source-root', '-r', GetoptLong::REQUIRED_ARGUMENT ],
    [ '--arch', '-a' ,GetoptLong::REQUIRED_ARGUMENT ],
-   [ '--family', '-f' ,GetoptLong::REQUIRED_ARGUMENT ]
-
+   [ '--family', '-f' ,GetoptLong::REQUIRED_ARGUMENT ],
+   [ '--build-path', '-b' ,GetoptLong::REQUIRED_ARGUMENT ]
 )
 
 def printUsage()
 	puts "Usage:"
 	puts "If you building target from XCode project"
-	puts "cedar.rb --source-root source_path --target project_target [ --sdk sdk] [ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ]"
+	puts "cedar.rb --source-root source_path --target project_target [ --sdk sdk] [ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build_path build-dir_path ]"
 	puts ""
 	puts "If you building scheme from workspace"
-	puts "cedar.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk] [ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ]"
+	puts "cedar.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk] [ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build-path build_dir_path ]"
 	puts ""
         puts "  --arch: iphoneos, iphonesimulator"
         puts "    default: iphoneos"
@@ -32,6 +32,8 @@ def printUsage()
         puts "    default: iphone"
         puts "  --log-file: path to log"
         puts "    default: /tmp/cedar-$target-$timestamp.log"
+	puts "  --build-path: relative path to app build"
+	puts "    default: source_path/build/"
 end
 
 BUILD_SCHEME = "scheme"
@@ -45,6 +47,7 @@ configuration = "Release"
 sdk = nil
 family = nil
 log_file = nil
+build_dir = "build"
 sim_path = "/usr/local/bin/ios-sim"
 build_type = nil;
 
@@ -69,6 +72,8 @@ begin
         log_file = arg
       when "--family"
         family = arg
+      when "--build-path"
+	build_dir = arg
     end
   end
 rescue StandardError=>my_error_message
@@ -114,7 +119,7 @@ if build_type == BUILD_TARGET
 else
   app_name = "#{scheme}.app"
 end
-app_path = "#{source_root}/build/#{configuration}-#{arch}/#{app_name}"
+app_path = "#{source_root}/#{build_dir}/#{configuration}-#{arch}/#{app_name}"
 
 %x[ killall "iPhone Simulator" ]
 
