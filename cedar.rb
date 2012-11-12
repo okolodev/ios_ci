@@ -89,12 +89,14 @@ else
   exit 1
 end
 
-cedar_test_target = "cd #{source_root} && "
+build = nil
 if build_type == BUILD_TARGET
-  cedar_test_target += "xcodebuild -target '#{target}' -sdk #{arch} -configuration #{configuration} build"
+  build = "-target '#{target}'"
 else
-  cedar_test_target += "xcodebuild -scheme '#{scheme}' -workspace '#{workspace}' -sdk #{arch} -configuration #{configuration} build"
+ build = "-scheme '#{scheme}' -workspace '#{workspace}'"
 end
+cedar_test_target = "cd #{source_root} && xcodebuild #{build} -sdk #{arch} -configuration #{configuration} build"
+puts cedar_test_target
 cedar_test_target_exit_code = system(cedar_test_target)
 
 if cedar_test_target_exit_code
@@ -106,7 +108,13 @@ else
 end
 
 log_file = "/tmp/cedar-#{target}-#{Time.now.to_i}.log" if log_file.nil?
-app_path = "#{source_root}/build/#{configuration}-#{arch}/#{target}.app"
+app_name = nil
+if build_type == BUILD_TARGET
+  app_name = "#{target}.app"
+else
+  app_name = "#{scheme}.app"
+end
+app_path = "#{source_root}/build/#{configuration}-#{arch}/#{app_name}"
 
 %x[ killall "iPhone Simulator" ]
 
