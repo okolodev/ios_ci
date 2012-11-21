@@ -42,7 +42,7 @@ source_root = nil
 target = nil
 workspace = nil
 scheme = nil
-arch = "iphoneos"
+arch = "iphonesimulator"
 configuration = "Release"
 sdk = nil
 family = nil
@@ -76,6 +76,7 @@ begin
 	build_dir = arg
     end
   end
+
 rescue StandardError=>my_error_message
 	puts
 	puts my_error_message
@@ -84,33 +85,16 @@ rescue StandardError=>my_error_message
 	exit 1
 end
 
-if !target.nil? and !source_root.nil?
+if !target.nil?
   build_type = BUILD_TARGET
 elsif !workspace.nil? and !scheme.nil?
   build_type = BUILD_SCHEME
 else
-  puts "You must specify target and source root or scheme and workspace"
+  puts "You must specify target root or scheme and workspace"
   printUsage
   exit 1
 end
 
-build = nil
-if build_type == BUILD_TARGET
-  build = "-target '#{target}'"
-else
- build = "-scheme '#{scheme}' -workspace '#{workspace}'"
-end
-cedar_test_target = "cd #{source_root} && xcodebuild #{build} -sdk #{arch} -configuration #{configuration} build"
-puts cedar_test_target
-cedar_test_target_exit_code = system(cedar_test_target)
-
-if cedar_test_target_exit_code
-  puts "Cedar tests build succeeded"
-  puts
-else
-  puts "Cedar tests build failed"
-  exit 1
-end
 
 log_file = "/tmp/cedar-#{target}-#{Time.now.to_i}.log" if log_file.nil?
 app_name = nil
@@ -121,9 +105,11 @@ else
 end
 app_path = "#{source_root}/#{build_dir}/#{configuration}-#{arch}/#{app_name}"
 
+puts "Closing iPhone Simulator"
 %x[ killall "iPhone Simulator" ]
+puts ""
 
-puts ">>>>>>>>>#{app_path} <<<<<<<<<"
+puts ">>>>>>>>> #{app_path} <<<<<<<<<"
 test_command = "#{sim_path} launch #{app_path} --setenv CEDAR_HEADLESS_SPECS=1 --setenv CEDAR_REPORTER_CLASS=CDRColorizedReporter,CDRJUnitXMLReporter --setenv CEDAR_JUNIT_XML_FILE=#{source_root}/test-reports/cedar.xml "
 test_command + " --family #{family} " unless family.nil?
 test_command + " --sdk #{sdk} " unless sdk.nil?
@@ -138,7 +124,10 @@ File.open(log_file, 'r') do |f1|
   end
 end
 
-unless grep_exit_code
+if grep_exit_code
+  puts "Cedar test succeeded"
+  exit 0
+else
+  puts "Cedar tests failed"
   exit 1
 end
-exit 0
