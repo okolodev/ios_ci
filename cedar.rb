@@ -1,7 +1,8 @@
 #!/usr/bin/ruby
 require "classes/params.rb"
-require "classes/build_tester.rb"
-require "classes/cedar_tester.rb"
+require "classes/launcher.rb"
+require "classes/build_command.rb"
+require "classes/cedar_command.rb"
 
 CEDAR_USAGE = 
 "Usage:
@@ -29,13 +30,19 @@ If you testing scheme from workspace:
       default: source_path/build/"
 
 params = Params.new(CEDAR_USAGE)
-builder = BuildTester.new(params)
-builder.run
-
-if builder.success? 
-  cedar = CedarTester.new(params)
-  cedar.run
-  exit cedar.success? ? 0 : 1
+build = BuildCommand.new(params)
+cedar = CedarCommand.new(params)
+launcher = Launcher.new
+launcher.run(build)
+if launcher.success? 
+  launcher.run(cedar)
+  if launcher.success? 
+    puts "Cedar tests succeeded" 
+    exit 0 
+  elsif
+    puts "Cedar tests failed"
+    exit 1
+  end
 elsif
   exit 1
 end

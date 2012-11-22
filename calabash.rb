@@ -1,7 +1,8 @@
 #!/usr/bin/ruby
 require "classes/params.rb"
-require "classes/build_tester.rb"
-require "classes/calabash_tester.rb"
+require "classes/launcher.rb"
+require "classes/build_command.rb"
+require "classes/calabash_command.rb"
 
 CALABASH_USAGE = 
 "Usage:
@@ -29,13 +30,19 @@ If you testing scheme from workspace:
       default: source_path/build/"
 
 params = Params.new(CALABASH_USAGE)
-builder = BuildTester.new(params)
-builder.run
-
-if builder.success? 
-  calabash = CalabashTester.new(params)
-  calabash.run
-  exit calabash.success? ? 0 : 1
+build = BuildCommand.new(params)
+calabash = CalabashCommand.new(params)
+launcher = Launcher.new
+launcher.run(build)
+if launcher.success? 
+  launcher.run(calabash)
+  if launcher.success?
+    puts "Calabash tests succeeded"
+    exit 0
+  elsif
+    puts "Calabash tests failed"
+    exit 1
+  end
 elsif
   exit 1
 end
