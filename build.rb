@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 require "classes/params.rb"
-require "classes/builder.rb"
+require "classes/build_tester.rb"
 
 BUILD_USAGE =
 "Usage:
@@ -27,6 +27,6 @@ If you building scheme from workspace, you should specify build scheme and works
 	     default: source_path/build/"
 
 params = Params.new(BUILD_USAGE)  
-builder = Builder.new(params)
+builder = BuildTester.new(params)
 builder.run
 exit builder.success? ? 0 : 1

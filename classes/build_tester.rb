@@ -1,6 +1,6 @@
 require "classes/params.rb"
 
-class Builder
+class BuildTester
 
   def initialize(params)
     @params = params
