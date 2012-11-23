@@ -20,9 +20,9 @@ If you building target from XCode project, you should specify target name:
 
 `build.rb --source-root source\_path --target project\_target [ --sdk sdk ] [ --family device\_family ] [ --configuration config ] [ --arch arch ] [ --build\_path build-dir\_path ]`
     
-    If you building scheme from workspace, you should specify build scheme and workspace:
+If you building scheme from workspace, you should specify build scheme and workspace:
 
-    `build.rb --source\-root source\_path --scheme build\_scheme --workspace workspace\_name [ --sdk sdk ] [ --family device\_family ] [ --configuration config ] [ --arch arch ] [--build\_path build-dir\_path ]`
+`build.rb --source\-root source\_path --scheme build\_scheme --workspace workspace\_name [ --sdk sdk ] [ --family device\_family ] [ --configuration config ] [ --arch arch ] [--build\_path build-dir\_path ]`
 
     Arguments list: 
          
