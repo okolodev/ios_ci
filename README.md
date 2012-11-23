@@ -18,7 +18,8 @@ Just run command
 
 If you building target from XCode project, you should specify target name:
 
-`build.rb --source-root source\_path --target project\_target [ --sdk sdk ] [ --family device\_family ] [ --configuration config ] [ --arch arch ] [ --build\_path build-dir\_path ]`
+`build.rb --source-root source_path --target project_target [ --sdk sdk ] [ --family device_family ]
+ [ --configuration config ] [ --arch arch ] [ --build\_path build-dir\_path ]`
     
 If you building scheme from workspace, you should specify build scheme and workspace:
 
