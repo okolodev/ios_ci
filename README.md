@@ -18,13 +18,13 @@ Just run command
 
 If you building target from XCode project, you should specify target name:
 
-build.rb --source-root source_path --target project_target [ --sdk sdk ] [ --family device_family ]
-[ --configuration config ] [ --arch arch ] [ --build_path build-dir_path ]
+`build.rb --source-root source_path --target project_target [ --sdk sdk ] [ --family device_family ]`
+`[ --configuration config ] [ --arch arch ] [ --build_path build-dir_path ]`
     
 If you building scheme from workspace, you should specify build scheme and workspace:
 
-build.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk ] 
-[ --family device\_family ] [ --configuration config ] [ --arch arch ] [--build_path build-dir_path ]
+`build.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk ]` 
+`[ --family device_family ] [ --configuration config ] [ --arch arch ] [--build_path build-dir_path ]`
 
 Arguments list: 
          
@@ -39,13 +39,13 @@ Arguments list:
 
 If you testing target from XCode project:
 
-cedar.rb --source-root source_path --target project_target [ --sdk sdk] [ --family device_family ]
-[ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build_path build-dir_path ]
+`cedar.rb --source-root source_path --target project_target [ --sdk sdk] [ --family device_family ]`
+`[ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build_path build-dir_path ]`
 
 If you testing scheme from workspace:
 
-cedar.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk]
-[ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build-path build_dir_path ]
+`cedar.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk]`
+`[ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build-path build_dir_path ]`
 
 Arguments list: 
      
@@ -60,13 +60,13 @@ Arguments list:
 
 If you testing target from XCode project:
 
-calabash.rb --source-root source_path --target project_target [ --sdk sdk] [ --family device_family ]
-[ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build_path build-dir_path ]
+`calabash.rb --source-root source_path --target project_target [ --sdk sdk] [ --family device_family ]`
+`[ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build_path build-dir_path ]`
 
 If you testing scheme from workspace:
 
-calabash.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk] 
-[ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build-path build_dir_path ]
+`calabash.rb --source-root source_path --scheme build_scheme --workspace workspace_name [ --sdk sdk]`
+`[ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ] [--build-path build_dir_path ]`
 
 Arguments list: 
      
