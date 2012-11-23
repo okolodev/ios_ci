@@ -2,17 +2,17 @@
 require "classes/params.rb"
 require "classes/launcher.rb"
 require "classes/build_command.rb"
-require "classes/cedar_command.rb"
+require "classes/calabash_command.rb"
 
-CEDAR_USAGE = 
+CALABASH_USAGE = 
 "Usage:
 If you testing target from XCode project:
-    cedar.rb --source-root source_path --target project_target [ --sdk sdk]\
+    calabash.rb --source-root source_path --target project_target [ --sdk sdk]\
  [ --family device_family ] [ --configuration config ] [ --arch arch] [ --log-file log_path ]\
  [--build_path build-dir_path ]
 
 If you testing scheme from workspace:
-    cedar.rb --source-root source_path --scheme build_scheme --workspace workspace_name\
+    calabash.rb --source-root source_path --scheme build_scheme --workspace workspace_name\
  [ --sdk sdk] [ --family device_family ] [ --configuration config ] [ --arch arch]\
  [ --log-file log_path ] [--build-path build_dir_path ]
 
@@ -29,18 +29,18 @@ If you testing scheme from workspace:
     --build-path: relative path to app build
       default: source_path/build/"
 
-params = Params.new(CEDAR_USAGE)
+params = Params.new(CALABASH_USAGE)
 build = BuildCommand.new(params)
-cedar = CedarCommand.new(params)
+calabash = CalabashCommand.new(params)
 launcher = Launcher.new
 launcher.run(build)
 if launcher.success? 
-  launcher.run(cedar)
-  if launcher.success? 
-    puts "Cedar tests succeeded" 
-    exit 0 
+  launcher.run(calabash)
+  if launcher.success?
+    puts "Calabash tests succeeded"
+    exit 0
   elsif
-    puts "Cedar tests failed"
+    puts "Calabash tests failed"
     exit 1
   end
 elsif
