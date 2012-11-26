@@ -29,13 +29,9 @@ class Launcher
     after = @command.after_command
     puts ">>>>> Running command <<<<<\n#{main}\n"
 
-    if !before.nil?
-      system(before)
-    end
+    system(before) if before.nil?
     @result = system(main)
-    if !after.nil?
-      @result = system(after)
-    end
+    @result = system(after) if after.nil?
   end
 
   def close_simulator
