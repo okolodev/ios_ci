@@ -4,6 +4,9 @@ class BuildCommand < BaseCommand
 
   # overriding base class methods
   def before_command
+    if cocoapods?
+      "cd #{@params.source_root} && pods install"
+    end
   end
 
   def main_command
@@ -23,6 +26,10 @@ class BuildCommand < BaseCommand
 
   def clean_dir
     "#{@params.source_root}/#{@params.build_path}/#{@params.configuration}-#{@params.architecture}"
+  end
+
+  def cocoapods?
+    filename = "#{@params.source_root}/Podfile"
   end
 
 end
