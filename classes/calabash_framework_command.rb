@@ -7,7 +7,7 @@ class CalabashFrameworkCommand < BaseCommand
   end
 
   def main_command
-    "cd #{@params.source_root} && calabash-ios setup" unless framework?
+    "cd #{@params.source_root} && calabash-ios download" unless framework?
   end
 
   def after_command
@@ -17,6 +17,7 @@ class CalabashFrameworkCommand < BaseCommand
   private
 
   def framework?
-    File.exist?("#{@params.source_root}/calabash.framework")
+    File.directory?("#{@params.source_root}/calabash.framework")
   end
+
 end
