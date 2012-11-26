@@ -17,7 +17,7 @@ class CedarCommand < BaseCommand
     "#{test_command} > #{self.log_file} 2>&1"
   end
 
-  def grep_command
+  def after_command
     "grep -q \"0 failures\" #{self.log_file}"
   end
 
