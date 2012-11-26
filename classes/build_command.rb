@@ -5,7 +5,7 @@ class BuildCommand < BaseCommand
   # overriding base class methods
   def before_command
     if cocoapods?
-      "cd #{@params.source_root} && pods install"
+      "cd #{@params.source_root} && pod install"
     end
   end
 
