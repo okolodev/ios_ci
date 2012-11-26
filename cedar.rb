@@ -30,19 +30,12 @@ If you testing scheme from workspace:
       default: source_path/build/"
 
 params = Params.new(CEDAR_USAGE)
-build = BuildCommand.new(params)
-cedar = CedarCommand.new(params)
 launcher = Launcher.new
-launcher.run(build)
+launcher.run([BuildCommand, CedarCommand], params)
 if launcher.success? 
-  launcher.run(cedar)
-  if launcher.success? 
-    puts "Cedar tests succeeded" 
-    exit 0 
-  elsif
-    puts "Cedar tests failed"
-    exit 1
-  end
+  puts "Cedar tests succeeded" 
+  exit 0 
 elsif
+  puts "Cedar tests failed"
   exit 1
 end

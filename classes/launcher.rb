@@ -4,16 +4,17 @@ class Launcher
 
   # instance variables
   @result = nil
-  @command = nil
 
   # public methods
   public
 
-  def run(command)
-    @command = command
-    close_simulator
-    invoke
-    print_log
+  def run(commands, params)
+    commands.map { | command_class | 
+      command = command_class.new(params)
+      next if command.empty? 
+      @result = run_command(command)
+      break unless @result
+    }
   end
 
   def success?
@@ -23,16 +24,18 @@ class Launcher
   # private
   private
   
-  def invoke
-    main = @command.main_command
-    grep = @command.grep_command
-    puts ">>>>> Running command <<<<<\n#{main}\n"
-    if grep.nil?
-      @result = system(main)
-    else
-      system(main)
-      @result = system(grep)
-    end
+   def run_command(command)
+    close_simulator
+    invoke_result = invoke(command.all_commands)
+    print_log(command.log_file) unless command.log_file.nil?
+    return invoke_result
+  end
+
+  def invoke(commands)
+    commands.map { | cmd |
+      puts ">>>>> Running commands <<<<<\n#{cmd}\n"
+      system(cmd)
+    }.last
   end
 
   def close_simulator
@@ -41,13 +44,10 @@ class Launcher
     puts ""
   end
 
-  def print_log
-    log_file = @command.log_file
-    if !log_file.nil?
-      File.open(log_file, 'r') do |f1|
-        while line = f1.gets
-          puts line
-        end
+  def print_log(log_file)
+    File.open(log_file, 'r') do | f |
+      while line = f.gets
+        puts line
       end
     end
   end

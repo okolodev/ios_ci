@@ -28,9 +28,8 @@ If you building scheme from workspace, you should specify build scheme and works
 	     default: source_path/build/"
 
 params = Params.new(BUILD_USAGE)  
-command = BuildCommand.new(params)
 launcher = Launcher.new
-launcher.run(command)
+launcher.run([BuildCommand], params)
 if launcher.success?
   puts "Target build succeeded"
   exit 0

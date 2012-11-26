@@ -10,11 +10,14 @@ class CedarCommand < BaseCommand
     @log_file_default = "/tmp/cedar-#{app_name}-#{Time.now.to_i}.log"
   end
 
+  def before_command
+  end
+
   def main_command
     "#{test_command} > #{self.log_file} 2>&1"
   end
 
-  def grep_command
+  def after_command
     "grep -q \"0 failures\" #{self.log_file}"
   end
 
