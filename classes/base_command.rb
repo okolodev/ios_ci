@@ -16,12 +16,16 @@ class BaseCommand
   end
 
   # override in subclasses
+  def before_command
+    raise "Invoking of abstract method 'before_command' of 'BaseCommand class'"
+  end
+
   def main_command
     raise "Invoking of abstract method 'main_command' of 'BaseCommand class'"
   end
 
-  def grep_command
-    raise "Invoking of abstract method 'grep_command' of 'BaseCommand class'"
+  def after_command
+    raise "Invoking of abstract method 'after_command' of 'BaseCommand class'"
   end
 
   # private methods

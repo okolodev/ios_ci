@@ -24,14 +24,17 @@ class Launcher
   private
   
   def invoke
+    before = @command.before_command
     main = @command.main_command
-    grep = @command.grep_command
+    after = @command.after_command
     puts ">>>>> Running command <<<<<\n#{main}\n"
-    if grep.nil?
-      @result = system(main)
-    else
-      system(main)
-      @result = system(grep)
+
+    if !before.nil?
+      system(before)
+    end
+    @result = system(main)
+    if !after.nil?
+      @result = system(after)
     end
   end
 

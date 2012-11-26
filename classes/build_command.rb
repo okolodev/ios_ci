@@ -3,12 +3,14 @@ require "classes/base_command.rb"
 class BuildCommand < BaseCommand
 
   # overriding base class methods
+  def before_command
+  end
+
   def main_command
      "cd #{@params.source_root} && xcodebuild #{build_args} -sdk #{@params.architecture} -configuration #{@params.configuration} clean build CONFIGURATION_BUILD_DIR=#{clean_dir}"
   end
 
-  def grep_command
-    nil
+  def after_command
   end
 
   # private methods
