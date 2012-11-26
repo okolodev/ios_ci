@@ -31,7 +31,7 @@ If you testing scheme from workspace:
 
 params = Params.new(CEDAR_USAGE)
 launcher = Launcher.new
-launcher.run([BuildCommand.new(params), CedarCommand.new(params)])
+launcher.run([BuildCommand, CedarCommand], params)
 if launcher.success? 
   puts "Cedar tests succeeded" 
   exit 0 

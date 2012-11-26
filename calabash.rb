@@ -32,7 +32,7 @@ If you testing scheme from workspace:
 
 params = Params.new(CALABASH_USAGE)
 launcher = Launcher.new
-launcher.run([CalabashFrameworkCommand.new(params), BuildCommand.new(params), CalabashCommand.new(params)])
+launcher.run([CalabashFrameworkCommand, BuildCommand, CalabashCommand], params)
 if launcher.success? 
   puts "Calabash tests succeeded"
   exit 0

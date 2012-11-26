@@ -29,7 +29,7 @@ If you building scheme from workspace, you should specify build scheme and works
 
 params = Params.new(BUILD_USAGE)  
 launcher = Launcher.new
-launcher.run([BuildCommand.new(params)])
+launcher.run([BuildCommand], params)
 if launcher.success?
   puts "Target build succeeded"
   exit 0

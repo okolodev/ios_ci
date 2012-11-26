@@ -12,8 +12,12 @@ class BaseCommand
     @params = params
   end
   
-  def commands
+  def all_commands
     [before_command, main_command, after_command].compact
+  end
+
+  def empty?
+    all_commands.empty?
   end
 
   def log_file
