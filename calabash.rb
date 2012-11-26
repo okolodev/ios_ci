@@ -3,6 +3,7 @@ require "classes/params.rb"
 require "classes/launcher.rb"
 require "classes/build_command.rb"
 require "classes/calabash_command.rb"
+require "classes/calabash_framework_command.rb"
 
 CALABASH_USAGE = 
 "Usage:
@@ -30,9 +31,11 @@ If you testing scheme from workspace:
       default: source_path/build/"
 
 params = Params.new(CALABASH_USAGE)
+framework = CalabashFrameworkCommand.new(params)
 build = BuildCommand.new(params)
 calabash = CalabashCommand.new(params)
 launcher = Launcher.new
+launcher.run(framework)
 launcher.run(build)
 if launcher.success? 
   launcher.run(calabash)

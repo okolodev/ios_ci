@@ -4,9 +4,7 @@ class BuildCommand < BaseCommand
 
   # overriding base class methods
   def before_command
-    if cocoapods?
-      "cd #{@params.source_root} && pod install"
-    end
+    "cd #{@params.source_root} && pod install" if cocoapods?
   end
 
   def main_command
@@ -29,7 +27,7 @@ class BuildCommand < BaseCommand
   end
 
   def cocoapods?
-    filename = "#{@params.source_root}/Podfile"
+    File.exist?("#{@params.source_root}/Podfile")
   end
 
 end

@@ -28,9 +28,8 @@ class Launcher
     main = @command.main_command
     after = @command.after_command
     puts ">>>>> Running command <<<<<\n#{main}\n"
-
     system(before) unless before.nil?
-    @result = system(main)
+    @result = system(main) unless main.nil?
     @result = system(after) unless after.nil?
   end
 
