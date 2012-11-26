@@ -24,13 +24,10 @@ class Launcher
   private
   
   def invoke
-    before = @command.before_command
-    main = @command.main_command
-    after = @command.after_command
-    puts ">>>>> Running commands <<<<<\n#{before}\n#{main}\n#{after}"
-    system(before) unless before.nil?
-    @result = system(main) unless main.nil?
-    @result = system(after) unless after.nil?
+    @result = @command.commands.map { | cmd |
+      puts ">>>>> Running commands <<<<<\n#{cmd}\n"
+      system(cmd)
+    }.last
   end
 
   def close_simulator

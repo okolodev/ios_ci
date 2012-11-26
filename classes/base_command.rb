@@ -4,6 +4,7 @@ class BaseCommand
 
   # instance variables
   @log_file_default = nil
+
   # public methods
   public
 
@@ -11,6 +12,10 @@ class BaseCommand
     @params = params
   end
   
+  def commands
+    [before_command, main_command, after_command].compact
+  end
+
   def log_file
     @params.log_file.nil? ? @log_file_default : @params.log_file
   end
