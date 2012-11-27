@@ -2,9 +2,6 @@ require "classes/params.rb"
 
 class BaseCommand
 
-  # instance variables
-  @log_file_default = nil
-
   # public methods
   public
 
@@ -21,7 +18,7 @@ class BaseCommand
   end
 
   def log_file
-    @params.log_file.nil? ? @log_file_default : @params.log_file
+    @params.log_file
   end
 
   # override in subclasses
@@ -40,11 +37,8 @@ class BaseCommand
   # private methods
   private
 
-  def app_name
-    @params.target? ? @params.target : @params.scheme
+  def app_path
+    "#{@params.source_root}/#{@params.build_path}/#{@params.configuration}-#{@params.architecture}/#{@params.app_name}.app"
   end
 
-  def app_path
-    "#{@params.source_root}/#{@params.build_path}/#{@params.configuration}-#{@params.architecture}/#{app_name}.app"
-  end
 end

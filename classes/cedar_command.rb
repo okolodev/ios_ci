@@ -5,11 +5,6 @@ SIM_PATH = "/usr/local/bin/ios-sim"
 class CedarCommand < BaseCommand
 
   # overrides from base class
-  def initialize(params)
-    super(params)
-    @log_file_default = "/tmp/cedar-#{app_name}-#{Time.now.to_i}.log"
-  end
-
   def before_command
   end
 

@@ -1,15 +1,26 @@
 require "getoptlong"
+require "classes/print_file.rb"
+
+ACTION_BUILD = "build"
+ACTION_CEDAR = "cedar"
+ACTION_CALABASH = "calabash"
 
 class Params
-	attr_accessor :source_root, :target, :scheme, :workspace, :configuration, :architecture,
-					:sdk, :family, :build_path, :log_file
+  # attributes
+	attr_reader :action, :source_root, :target, :scheme, :workspace, :configuration,
+    :architecture, :sdk, :family, :build_path, :log_file
 
-	def initialize(usage)
-    self.set_defaults
+  # public methods
+  public
+
+	def initialize
+    set_defaults
     begin
-      getoptlong = self.get_options
-      self.parse_options(getoptlong)
-      self.check_options
+      parse_action
+      getoptlong = get_options
+      parse_options(getoptlong)
+      check_options
+      set_log_file
 
     rescue StandardError=>error
       puts "\n#{error}\n#{usage}"
@@ -17,56 +28,88 @@ class Params
     end
   end
 
+  def app_name
+    target? ? @target : @scheme
+  end
+
+  def workspace?
+    !@scheme.nil? && !@workspace.nil?
+  end
+
+  def target?
+    !@target.nil?
+  end
+
+  # private methods
+  private
+
   def set_defaults
-    self.architecture = "iphonesimulator"
-    self.configuration = "Release"
-    self.build_path = "build"
+    @architecture = "iphonesimulator"
+    @configuration = "Release"
+    @build_path = "build"
+  end
+
+  def parse_action
+    @action = ARGV.shift
+    raise unless check_action      
   end
 
   def get_options
     GetoptLong.new(
-      [ '--sdk',   '-s', GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--target',  '-t', GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--scheme',  '-h', GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--workspace',  '-w', GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--configuration', '-c', GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--log-file', '-l', GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--source-root', '-r', GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--arch', '-a' ,GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--family', '-f' ,GetoptLong::REQUIRED_ARGUMENT ],
-      [ '--build-path', '-b' ,GetoptLong::REQUIRED_ARGUMENT ]
+      [ '--target',  '-t', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--scheme',  '-h', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--workspace',  '-w', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--source-root', '-r', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--arch', '-a' ,GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--configuration', '-c', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--sdk',   '-s', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--log-file', '-l', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--family', '-f' ,GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--build-path', '-b' ,GetoptLong::OPTIONAL_ARGUMENT ]
     )
   end
 
   def parse_options(getoptlong)
     getoptlong.each do |opt, arg|
       case opt
+        when ACTION_BUILD
+          @action = ACTION_BUILD
+        when ACTION_CEDAR
+          @action = ACTION_CEDAR
+        when ACTION_CALABASH
+          @action = ACTION_CALABASH
         when "--source-root"
-          self.source_root = arg
+          @source_root = arg
         when "--target"
-          self.target = arg
+          @target = arg
         when "--scheme"
-          self.scheme = arg
+          @scheme = arg
         when "--workspace" 
-          self.workspace = arg
+          @workspace = arg
         when "--configuration"
-          self.configuration = arg
+          @configuration = arg
         when "--arch"
-          self.architecture = arg
+          @architecture = arg
         when "--sdk"
-          self.sdk = arg
+          @sdk = arg
         when "--family"
-          self.family = arg
+          @family = arg
         when "--build-path"
-          self.build_path = arg
+          @build_path = arg
         when "--log-file"
-          self.log_file = arg
+          @log_file = arg
       end
     end
 	end
 
+  def check_action
+    @action == ACTION_BUILD || @action == ACTION_CEDAR || @action == ACTION_CALABASH
+  end
   def check_options
-    if self.source_root.nil?
+    if self.action.nil?
+      puts "You must specify action type"
+      raise
+    elsif self.source_root.nil?
       puts "You must specify source root"
       raise
     elsif !self.target? && !self.workspace?
@@ -75,12 +118,11 @@ class Params
     end
   end
 
-  def workspace?
-    !scheme.nil? && !workspace.nil?
+  def set_log_file
+    @log_file = "/tmp/#{@action}-#{app_name}-#{Time.now.to_i}.log" if @log_file.nil?
   end
 
-  def target?
-    !target.nil?
+  def usage
+    print_file("usage.txt")
   end
-
 end

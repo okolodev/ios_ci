@@ -14,6 +14,9 @@ class BuildCommand < BaseCommand
   def after_command
   end
 
+  def log_file
+  end
+
   # private methods
   private
 
