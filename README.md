@@ -11,7 +11,7 @@ This script for:
 # Installation
 Just run command
 
-`git clone git@github.com:okolodev/ios_ci.git`
+`gem install ios_ci`
 
 # Using
 
