@@ -11,7 +11,7 @@ class CalabashCommand < BaseCommand
   end
 
   def after_command
-    "! grep -q \"failed\" #{log_file}"
+    "! grep -q \"failed\" #{log_file} && grer -q \"passed\" #{log_file}"
   end
 
   # private methods
