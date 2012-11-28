@@ -25,13 +25,13 @@ Just run command
 
 ###### Project Options
 
-*  **--source-root** - path to project source code directory (_required_)
-*  **--target** - project target name (_required if no scheme and workspace specified_)
-*  **--scheme** - project build scheme (_required if no target specified_)
-*  **--workspace** - project worspace (_required id no target specified_)
-*  **--configuration** - Release, Debug (_optional, default: Release_)
-*  **--architecture** - iphoneos, iphonesimulator (_optional, default: iphonesimulator_)
-*  **--sdk** - version (_optional, default: latest_)
-*  **--family** - iphone, ipad (_optional, default: iphone_)
-*  **--build-path** - relative path from source root to app build (_optional, default: $source-root/build/_)
-*  **--log-file** - path to log file (_optional, default: /tmp/$action-$target-$timestamp.log_)
+*  **--source-root** - path to project source code directory ( _required_ )
+*  **--target** - project target name ( _required if no scheme and workspace specified_ )
+*  **--scheme** - project build scheme ( _required if no target specified_ )
+*  **--workspace** - project worspace ( _required id no target specified_ )
+*  **--configuration** - Release, Debug ( _optional, default: Release_ )
+*  **--architecture** - iphoneos, iphonesimulator ( _optional, default: iphonesimulator_ )
+*  **--sdk** - version ( _optional, default: latest_ )
+*  **--family** - iphone, ipad ( _optional, default: iphone_ )
+*  **--build-path** - relative path from source root to app build ( _optional, default: $source-root/build/_ )
+*  **--log-file** - path to log file ( _optional, default: /tmp/$action-$target-$timestamp.log_ )
