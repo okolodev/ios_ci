@@ -1,15 +1,10 @@
-require "classes/base_command.rb"
+require "commands/base_command.rb"
 
 SIM_PATH = "/usr/local/bin/ios-sim"
 
-class CedarCommand < BaseCommand
+class TestCedar < BaseCommand
 
   # overrides from base class
-  def initialize(params)
-    super(params)
-    @log_file_default = "/tmp/cedar-#{app_name}-#{Time.now.to_i}.log"
-  end
-
   def before_command
   end
 

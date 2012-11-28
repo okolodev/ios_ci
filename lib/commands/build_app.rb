@@ -1,6 +1,6 @@
-require "classes/base_command.rb"
+require "commands/base_command.rb"
 
-class BuildCommand < BaseCommand
+class BuildApp < BaseCommand
 
   # overriding base class methods
   def before_command
@@ -12,6 +12,9 @@ class BuildCommand < BaseCommand
   end
 
   def after_command
+  end
+
+  def log_file
   end
 
   # private methods
