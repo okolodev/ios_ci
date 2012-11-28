@@ -1,4 +1,4 @@
-require "classes/base_command.rb"
+require "lib/base_command.rb"
 
 SIM_PATH = "/usr/local/bin/ios-sim"
 

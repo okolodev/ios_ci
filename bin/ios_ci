@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
-require "classes/params.rb"
-require "classes/launcher.rb"
-require "classes/command_factory.rb"
+require "lib/params.rb"
+require "lib/launcher.rb"
+require "lib/command_factory.rb"
 
 params = Params.new
 factory = CommandFactory.new(params)

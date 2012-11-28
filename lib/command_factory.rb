@@ -1,8 +1,8 @@
-require "classes/params.rb"
-require "classes/build_command.rb"
-require "classes/cedar_command.rb"
-require "classes/calabash_command.rb"
-require "classes/calabash_framework_command.rb"
+require "lib/params.rb"
+require "lib/build_command.rb"
+require "lib/cedar_command.rb"
+require "lib/calabash_command.rb"
+require "lib/calabash_framework_command.rb"
 
 class CommandFactory
   # instance variables

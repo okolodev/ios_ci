@@ -1,5 +1,5 @@
 require "getoptlong"
-require "classes/print_file.rb"
+require "lib/print_file.rb"
 
 ACTION_BUILD = "build"
 ACTION_CEDAR = "cedar"
