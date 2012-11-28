@@ -1,5 +1,5 @@
 require "getoptlong"
-require "lib/print_file.rb"
+require "extra/print_file.rb"
 
 ACTION_BUILD = "build"
 ACTION_CEDAR = "cedar"
@@ -123,6 +123,6 @@ class Params
   end
 
   def usage
-    print_file("usage.txt")
+    print_file("lib/usage.txt")
   end
 end

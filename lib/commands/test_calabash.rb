@@ -1,6 +1,6 @@
-require "lib/base_command.rb"
+require "commands/base_command.rb"
 
-class CalabashCommand < BaseCommand
+class TestCalabash < BaseCommand
 
   # overrides from base class 
   def before_command

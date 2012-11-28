@@ -1,8 +1,8 @@
-require "lib/base_command.rb"
+require "commands/base_command.rb"
 
 SIM_PATH = "/usr/local/bin/ios-sim"
 
-class CedarCommand < BaseCommand
+class TestCedar < BaseCommand
 
   # overrides from base class
   def before_command

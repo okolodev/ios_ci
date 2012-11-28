@@ -1,6 +1,6 @@
-require "lib/base_command.rb"
+require "commands/base_command.rb"
 
-class BuildCommand < BaseCommand
+class BuildApp < BaseCommand
 
   # overriding base class methods
   def before_command

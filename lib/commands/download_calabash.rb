@@ -1,6 +1,6 @@
-require "lib/base_command.rb"
+require "commands/base_command.rb"
 
-class CalabashFrameworkCommand < BaseCommand
+class DownloadCalabash < BaseCommand
 
   # overrides from base class
   def before_command

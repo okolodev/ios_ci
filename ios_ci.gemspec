@@ -7,9 +7,10 @@ Gem::Specification.new do |s|
   s.authors       = ["Alexey Belkevich", "Alexey Denisov"]
   s.email         = 'belkevich@okolodev.org'
   s.files         = [ 
-    "usage.txt", "lib/base_command.rb", "lib/build_command.rb", "lib/calabash_command.rb", 
-    "lib/calabash_framework_command.rb", "lib/cedar_command.rb", "lib/command_factory.rb",
-    "lib/launcher.rb", "lib/params.rb", "lib/print_file.rb"
+    "lib/ios_ci.rb", "lib/usage.txt", "lib/commands/base_command.rb", "lib/commands/build_app.rb", 
+    "lib/commands/test_calabash.rb", "lib/commands/download_calabash.rb", 
+    "lib/commands/test_cedar.rb", "lib/factories/command_factory.rb",
+    "lib/launcher/launcher.rb", "lib/model/params.rb", "lib/extra/print_file.rb"
   ]
   s.executables   << 'ios_ci'
   s.homepage      = 'https://github.com/okolodev/ios_ci'

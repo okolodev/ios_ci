@@ -1,4 +1,4 @@
-require "lib/params.rb"
+require "model/params.rb"
 
 class BaseCommand
 

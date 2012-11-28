@@ -1,16 +1,4 @@
 #!/usr/bin/ruby
-require "lib/params.rb"
-require "lib/launcher.rb"
-require "lib/command_factory.rb"
+require "ios_ci"
 
-params = Params.new
-factory = CommandFactory.new(params)
-launcher = Launcher.new
-launcher.run(factory.get_commands)
-if launcher.success?
-  puts "#{params.action} succeeded"
-  exit 0
-else
-  puts "#{params.action} failed"
-  exit 1
-end
+IOSCI.new

@@ -1,8 +1,8 @@
-require "lib/params.rb"
-require "lib/build_command.rb"
-require "lib/cedar_command.rb"
-require "lib/calabash_command.rb"
-require "lib/calabash_framework_command.rb"
+require "model/params.rb"
+require "commands/build_app.rb"
+require "commands/test_cedar.rb"
+require "commands/test_calabash.rb"
+require "commands/download_calabash.rb"
 
 class CommandFactory
   # instance variables
@@ -29,15 +29,15 @@ class CommandFactory
   private
 
   def get_build
-    BuildCommand.new(@params)
+    BuildApp.new(@params)
   end
 
   def get_cedar
-    [get_build, CedarCommand.new(@params)]
+    [get_build, TestCedar.new(@params)]
   end
 
   def get_calabash
-    [CalabashFrameworkCommand.new(@params), get_build, CalabashCommand.new(@params)]
+    [DownloadCalabash.new(@params), get_build, TestCalabash.new(@params)]
   end
 
 end

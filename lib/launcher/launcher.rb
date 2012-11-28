@@ -1,5 +1,5 @@
-require "lib/base_command.rb"
-require "lib/print_file.rb"
+require "commands/base_command.rb"
+require "extra/print_file.rb"
 
 class Launcher
 
