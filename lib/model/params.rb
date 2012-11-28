@@ -7,13 +7,13 @@ ACTION_CALABASH = "calabash"
 
 class Params
   # attributes
-	attr_reader :action, :source_root, :target, :scheme, :workspace, :configuration,
+  attr_reader :action, :source_root, :target, :scheme, :workspace, :configuration,
     :architecture, :sdk, :family, :build_path, :log_file
 
   # public methods
   public
 
-	def initialize
+  def initialize
     set_defaults
     begin
       parse_action
@@ -105,6 +105,7 @@ class Params
   def check_action
     @action == ACTION_BUILD || @action == ACTION_CEDAR || @action == ACTION_CALABASH
   end
+  
   def check_options
     if self.action.nil?
       puts "You must specify action type"
