@@ -124,6 +124,6 @@ class Params
   end
 
   def usage
-    print_file("lib/usage.txt")
+    print_file("usage.txt")
   end
 end

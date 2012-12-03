@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'ios_ci'
-  s.version       = '1.0.0'
+  s.version       = '1.0.1'
   s.date          = '2012-11-28'
   s.summary       = 'iOS continuous integration'
   s.description   = 'Script for iOS continuous integration'
