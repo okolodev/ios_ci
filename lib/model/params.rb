@@ -124,6 +124,7 @@ class Params
   end
 
   def usage
-    print_file("usage.txt")
+    path = File.join(File.dirname(File.expand_path(__FILE__)), '../../resources/usage.txt')
+    print_file(path)
   end
 end
