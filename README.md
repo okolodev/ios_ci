@@ -35,3 +35,8 @@ Just run command
 *  **--family** - iphone, ipad ( _optional, default: iphone_ )
 *  **--build-path** - relative path from source root to app build ( _optional, default: $source-root/build/_ )
 *  **--log-file** - path to log file ( _optional, default: /tmp/$action-$target-$timestamp.log_ )
+
+###### Dependencies
+
+This tool is dependent on **ios-sim**, which can be installed by running command
+`brew install ios-sim`
