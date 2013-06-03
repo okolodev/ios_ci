@@ -79,7 +79,7 @@ class Params
         when ACTION_CALABASH
           @action = ACTION_CALABASH
         when "--source-root"
-          @source_root = arg
+          @source_root = (arg == "." || arg == "./") ? Dir.pwd : arg 
         when "--target"
           @target = arg
         when "--scheme"
