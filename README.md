@@ -28,7 +28,7 @@ Just run command
 *  **--source-root** - path to project source code directory ( _required_ )
 *  **--target** - project target name ( _required if no scheme and workspace specified_ )
 *  **--scheme** - project build scheme ( _required if no target specified_ )
-*  **--workspace** - project worspace ( _required id no target specified_ )
+*  **--workspace** - project worspace ( _required if no target specified_ )
 *  **--configuration** - Release, Debug ( _optional, default: Release_ )
 *  **--architecture** - iphoneos, iphonesimulator ( _optional, default: iphonesimulator_ )
 *  **--sdk** - version ( _optional, default: latest_ )
