@@ -40,3 +40,7 @@ Just run command
 
 This tool is dependent on **ios-sim**, which can be installed by running command
 `brew install ios-sim`
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/okolodev/ios_ci/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
